@@ -44,11 +44,12 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println();
+  int limit = 50
 
-  EEPROM.begin(51);  //Initialize EEPROM
+  EEPROM.begin(limit+1);  //Initialize EEPROM
 
   String strText;   
-  for(int i=0;i<50;i++) 
+  for(int i=0;i<limit;i++) 
   {
     if (EEPROM.read(0x0F+i) != 255 && EEPROM.read(0x0F+i) != 0) {
       strText = strText + char(EEPROM.read(0x0F+i)); //Read one by one with starting address of 0x0F    
@@ -95,10 +96,18 @@ void setup()
     String name = j->value();   
     Serial.println();
     //Write string to eeprom
-    for(int i=0;i<name.length();i++)
+    for(int i=0;i<limit;i++)
     {
-      EEPROM.write(0x0F+i, name[i]); //Write one by one with starting address of 0x0F
+      if (i <= name.length()) {
+        EEPROM.write(0x0F+i, name[i]); //Write one by one with starting address of 0x0F
+      } else {
+        EEPROM.write(0x0F+i, 0);
+      }
     }
+    // for(int i=0;i<name.length();i++)
+    // {
+    //   EEPROM.write(0x0F+i, name[i]); //Write one by one with starting address of 0x0F
+    // }
     EEPROM.commit();    //Store data to EEPROM
     request->send_P(200, "text/html", name.c_str());
   });
