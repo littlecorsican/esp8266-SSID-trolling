@@ -5,7 +5,7 @@
 #include <ESPAsyncWebServer.h>
 
 AsyncWebServer server(80);
-int numOfChar=50;
+int limit = 50;
 
 const char index_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE HTML><html>
@@ -44,7 +44,7 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println();
-  int limit = 50
+
 
   EEPROM.begin(limit+1);  //Initialize EEPROM
 

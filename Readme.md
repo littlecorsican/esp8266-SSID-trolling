@@ -5,3 +5,7 @@ GET: 192.168.4.1/form
 ##Limitation
 max 50 char 
 
+board: nodeMCU 1.0 (ESP-12E Module)
+
+IP: http://192.168.4.1/
+
